@@ -1142,21 +1142,22 @@ public class MessageAdapter extends ArrayAdapter<Message> implements CopyTextVie
         } else if (type == RTP_SESSION) {
             final boolean isDarkTheme = activity.isDarkTheme();
             final boolean received = message.getStatus() <= Message.STATUS_RECEIVED;
+            final String formattedTime = UIHelper.readableTimeDifferenceFull(activity, message.getMergedTimeSent());
             final RtpSessionStatus rtpSessionStatus = RtpSessionStatus.of(message.getBody());
             final long duration = rtpSessionStatus.duration;
             if (received) {
                 if (duration > 0) {
-                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, TimeframeUtils.resolve(activity, duration)));
+                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, formattedTime, TimeframeUtils.resolve(activity, duration)));
                 } else if (rtpSessionStatus.successful) {
                     viewHolder.status_message.setText(R.string.incoming_call);
                 } else {
-                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, UIHelper.readableTimeDifferenceFull(activity, message.getTimeSent())));
+                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, formattedTime));
                 }
             } else {
                 if (duration > 0) {
-                    viewHolder.status_message.setText(activity.getString(R.string.outgoing_call_duration, TimeframeUtils.resolve(activity, duration)));
+                    viewHolder.status_message.setText(activity.getString(R.string.outgoing_call_duration, formattedTime, TimeframeUtils.resolve(activity, duration)));
                 } else {
-                    viewHolder.status_message.setText(R.string.outgoing_call);
+                    viewHolder.status_message.setText(activity.getString(R.string.outgoing_call_time, formattedTime));
                 }
             }
             viewHolder.indicatorReceived.setImageResource(RtpSessionStatus.getDrawable(received, rtpSessionStatus.successful, isDarkTheme));
