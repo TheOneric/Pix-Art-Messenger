@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
@@ -28,9 +29,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 
 import org.checkerframework.checker.nullness.compatqual.NullableDecl;
+import org.jetbrains.annotations.NotNull;
 import org.webrtc.SurfaceViewRenderer;
 import org.webrtc.VideoTrack;
 
@@ -75,6 +76,23 @@ public class RtpSessionActivity extends XmppActivity implements XmppConnectionSe
     );
     private static final String PROXIMITY_WAKE_LOCK_TAG = "conversations:in-rtp-session";
     private static final int REQUEST_ACCEPT_CALL = 0x1111;
+    private long beginning = 0;
+    private Handler handler = new Handler();
+    private Runnable durationRunnable = new Runnable() {
+        @Override
+        public void run() {
+            duration();
+            handler.postDelayed(durationRunnable, 1000);
+        }
+    };
+
+    private void duration() {
+        long time = (beginning < 0) ? 0 : (SystemClock.elapsedRealtime() - beginning);
+        int minutes = (int) (time / 60000);
+        int seconds = (int) (time / 1000) % 60;
+        this.binding.timer.setText(minutes + ":" + (seconds < 10 ? "0" + seconds : seconds));
+    }
+
     private WeakReference<JingleRtpConnection> rtpConnectionReference;
 
     private ActivityRtpSessionBinding binding;
@@ -89,6 +107,18 @@ public class RtpSessionActivity extends XmppActivity implements XmppConnectionSe
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        savedInstanceState.putLong("BEGINNING", beginning);
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NotNull Bundle savedInstanceState) {
+        beginning = savedInstanceState.getLong("BEGINNING");
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+        @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
@@ -97,6 +127,9 @@ public class RtpSessionActivity extends XmppActivity implements XmppConnectionSe
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         this.binding = DataBindingUtil.setContentView(this, R.layout.activity_rtp_session);
         setSupportActionBar(binding.toolbar);
+        if (savedInstanceState != null) {
+            beginning = savedInstanceState.getLong("BEGINNING");
+        }
     }
 
     private void endCall(View view) {
@@ -442,6 +475,8 @@ public class RtpSessionActivity extends XmppActivity implements XmppConnectionSe
     private void updateStateDisplay(final RtpEndUserState state, final Set<Media> media) {
         switch (state) {
             case INCOMING_CALL:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 Preconditions.checkArgument(media.size() > 0, "Media must not be empty");
                 if (media.contains(Media.VIDEO)) {
                     setTitle(R.string.rtp_state_incoming_video_call);
@@ -450,38 +485,72 @@ public class RtpSessionActivity extends XmppActivity implements XmppConnectionSe
                 }
                 break;
             case CONNECTING:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 setTitle(R.string.rtp_state_connecting);
                 break;
             case CONNECTED:
+                if (beginning == 0) {
+                    beginning = SystemClock.elapsedRealtime();
+                }
+                this.binding.timer.setVisibility(View.VISIBLE);
+                handler.postDelayed(durationRunnable, 1000);
                 setTitle(R.string.rtp_state_connected);
                 break;
             case ACCEPTING_CALL:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 setTitle(R.string.rtp_state_accepting_call);
                 break;
             case ENDING_CALL:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
+                handler.removeCallbacks(durationRunnable);
                 setTitle(R.string.rtp_state_ending_call);
                 break;
             case FINDING_DEVICE:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 setTitle(R.string.rtp_state_finding_device);
                 break;
             case RINGING:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 setTitle(R.string.rtp_state_ringing);
                 break;
             case DECLINED_OR_BUSY:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 setTitle(R.string.rtp_state_declined_or_busy);
                 break;
             case CONNECTIVITY_ERROR:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
+                handler.removeCallbacks(durationRunnable);
                 setTitle(R.string.rtp_state_connectivity_error);
                 break;
             case RETRACTED:
+                if (beginning == 0) {
+                    beginning = SystemClock.elapsedRealtime();
+                }
+                this.binding.timer.setVisibility(View.VISIBLE);
+                handler.postDelayed(durationRunnable, 1000);
                 setTitle(R.string.rtp_state_retracted);
                 break;
             case APPLICATION_ERROR:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
                 setTitle(R.string.rtp_state_application_failure);
                 break;
             case ENDED:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
+                handler.removeCallbacks(durationRunnable);
                 throw new IllegalStateException("Activity should have called finishAndReleaseWakeLock();");
             default:
+                beginning = 0;
+                this.binding.timer.setVisibility(View.INVISIBLE);
+                handler.removeCallbacks(durationRunnable);
                 throw new IllegalStateException(String.format("State %s has not been handled in UI", state));
         }
     }

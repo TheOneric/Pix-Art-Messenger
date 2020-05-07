@@ -55,10 +55,26 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="8dp"
                 android:textSize="50sp"
                 android:textColor="@color/white"
                 tools:text="Juliet Capulet" />
+
+            <TextView
+                android:id="@+id/timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/with"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/white"
+                android:textSize="?attr/TextSizeHeadline"
+                android:textStyle="bold"
+                android:text="0:00"
+                android:visibility="invisible"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
