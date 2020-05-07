@@ -176,12 +176,6 @@
             android:key="led"
             android:summary="@string/pref_led_summary"
             android:title="@string/pref_led" />
-        <RingtonePreference
-            android:defaultValue="@string/notification_ringtone"
-            android:key="notification_ringtone"
-            android:ringtoneType="notification"
-            android:summary="@string/pref_sound_summary"
-            android:title="@string/pref_sound" />
         <CheckBoxPreference
             android:defaultValue="@bool/notifications_from_strangers"
             android:key="notifications_from_strangers"
