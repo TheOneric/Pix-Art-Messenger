@@ -1047,4 +1047,5 @@
     <string name="disable_tor_to_make_call">Disable Tor to make calls</string>
     <string name="only_one_call_at_a_time">You can only have one call at a time.</string>
     <string name="missed_call">Missed call</string>
+    <string name="could_not_switch_camera">Could not switch camera</string>
 </resources>

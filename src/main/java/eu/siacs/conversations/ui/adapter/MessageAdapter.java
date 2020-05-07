@@ -1148,10 +1148,8 @@ public class MessageAdapter extends ArrayAdapter<Message> implements CopyTextVie
             if (received) {
                 if (duration > 0) {
                     viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, formattedTime, TimeframeUtils.resolve(activity, duration)));
-                } else if (rtpSessionStatus.successful) {
-                    viewHolder.status_message.setText(R.string.incoming_call);
                 } else {
-                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, formattedTime));
+                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_time, formattedTime));
                 }
             } else {
                 if (duration > 0) {
