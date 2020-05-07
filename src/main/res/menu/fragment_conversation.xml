@@ -107,11 +107,6 @@
         android:title="@string/action_end_conversation"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_create_issue"
-        android:orderInCategory="100"
-        android:title="@string/create_issue"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/action_group_details"
         android:icon="@drawable/ic_group_white_24dp"
         android:orderInCategory="100"
