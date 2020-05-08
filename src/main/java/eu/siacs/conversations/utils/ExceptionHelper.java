@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import androidx.appcompat.app.AlertDialog;
@@ -34,10 +35,10 @@ public class ExceptionHelper {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
     public static void init(Context context) {
-        if (!(Thread.getDefaultUncaughtExceptionHandler() instanceof ExceptionHandler)) {
-            Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(
-                    context));
+        if (Thread.getDefaultUncaughtExceptionHandler() instanceof ExceptionHandler) {
+            return;
         }
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(context));
     }
 
     public static boolean checkForCrash(XmppActivity activity) {
