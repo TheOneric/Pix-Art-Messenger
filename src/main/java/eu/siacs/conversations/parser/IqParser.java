@@ -4,8 +4,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 
-import com.google.common.base.CharMatcher;
 import androidx.annotation.NonNull;
+
+import com.google.common.base.CharMatcher;
 import com.google.common.io.BaseEncoding;
 
 import org.whispersystems.libsignal.IdentityKey;
@@ -34,7 +35,6 @@ import eu.siacs.conversations.entities.Room;
 import eu.siacs.conversations.services.XmppConnectionService;
 import eu.siacs.conversations.utils.Namespace;
 import eu.siacs.conversations.xml.Element;
-import eu.siacs.conversations.xml.Namespace;
 import eu.siacs.conversations.xmpp.InvalidJid;
 import eu.siacs.conversations.xmpp.OnIqPacketReceived;
 import eu.siacs.conversations.xmpp.OnUpdateBlocklist;
