@@ -467,7 +467,7 @@
     <string name="changelog">Changes</string>
     <string name="account_settings_hostname">Hostname</string>
     <string name="account_settings_port">Port</string>
-    <string name="hostname_or_onion">Server- or .onion-Address</string>
+    <string name="hostname_or_onion">Hostname or .onion address</string>
     <string name="not_a_valid_port">This is not a valid port number</string>
     <string name="not_valid_hostname">This is not a valid hostname</string>
     <string name="connected_accounts">%1$d of %2$d accounts connected</string>
@@ -575,7 +575,7 @@
     <string name="message">Message</string>
     <string name="quote">Quote</string>
     <string name="show_error_message">Show error message</string>
-    <string name="error_message">Error Message</string>
+    <string name="error_message">Error message</string>
     <string name="data_saver_enabled">Data saver enabled</string>
     <string name="data_saver_enabled_explained">Your operating system is restricting Pix-Art Messenger from accessing the Internet when in background. To receive notifications of new messages you should allow Pix-Art Messenger unrestricted access when Data saver is on.\n\nPix-Art Messenger will still make an effort to save data when possible.</string>
     <string name="device_does_not_support_data_saver">Your device does not supporting disabling data saver for Pix-Art Messenger.</string>
@@ -634,7 +634,7 @@
     <string name="today">Today</string>
     <string name="pref_use_max_brightness_summary">Switch to maximum brightness while watching videos or images in fullscreen.</string>
     <string name="pref_use_max_brightness">Maximum brightness</string>
-    <string name="block_jabber_id">Block Jabber-ID</string>
+    <string name="block_jabber_id">Block Jabber ID</string>
     <string name="corresponding_conversations_closed">Corresponding conversations closed.</string>
     <string name="contact_blocked_past_tense">Contact blocked.</string>
     <string name="pref_notifications_from_strangers">Notifications from strangers</string>
@@ -642,7 +642,7 @@
     <string name="received_message_from_stranger">Received message from stranger</string>
     <string name="contacts_are_typing">%s are typing…</string>
     <string name="contact_is_typing">%s is typing…</string>
-    <string name="one_participant">one participant</string>
+    <string name="one_participant">One participant</string>
     <string name="more_participants">%d participants</string>
     <string name="presence_offline">Offline</string>
     <string name="block_stranger">Block stranger</string>
@@ -845,8 +845,8 @@
     <string name="pref_prefer_xmpp_avatar_summary">Prefer the user\'s XMPP avatar instead of the one from your address book</string>
     <string name="pref_prefer_xmpp_avatar">Prefer XMPP avatar</string>
     <plurals name="view_users">
-        <item quantity="one">View %1$d Participant</item>
-        <item quantity="other">View %1$d Participants</item>
+        <item quantity="one">View %1$d participant</item>
+        <item quantity="other">View %1$d participants</item>
     </plurals>
     <string name="group_chat_members">Participants</string>
     <string name="message_deleted">Message was deleted</string>
@@ -935,8 +935,8 @@
     <string name="please_enter_password">Please enter the password for this account</string>
     <string name="unable_to_perform_this_action">Unable to perform this action</string>
     <string name="waiting_for_transfer">Waiting for transfer</string>
-    <string name="x_has_written">%s Wrote:</string>
-    <string name="i_have_written">I Wrote:</string>
+    <string name="x_has_written">%s wrote:</string>
+    <string name="i_have_written">I wrote:</string>
     <string name="your_status">Your status</string>
     <string name="pref_use_invidious">Replace YouTube links with Invidious</string>
     <string name="pref_use_invidious_summary">Invidious is a privacy friendly alternative to YouTube</string>
