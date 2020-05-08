@@ -1048,4 +1048,6 @@
     <string name="only_one_call_at_a_time">You can only have one call at a time.</string>
     <string name="missed_call">Missed call</string>
     <string name="could_not_switch_camera">Could not switch camera</string>
+    <string name="otr_warning">The support of OTR encryption will drop in June 2020. Click read more to get more information. A link in a browser will open.</string>
+    <string name="readmore">Read more</string>
 </resources>

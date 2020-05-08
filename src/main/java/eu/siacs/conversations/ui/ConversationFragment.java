@@ -1821,6 +1821,19 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
         activity.xmppConnectionService.getHttpConnectionManager().createNewDownloadConnection(message, true);
     }
 
+    private OnClickListener OTRwarning = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                final Uri uri = Uri.parse("https://github.com/kriztan/Pix-Art-Messenger/blob/master/docs/encryption.md");
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(browserIntent);
+            } catch (Exception e) {
+                ToastCompat.makeText(activity, R.string.no_application_found_to_open_link, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     @SuppressLint("InflateParams")
     protected void clearHistoryDialog(final Conversation conversation) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -2647,6 +2660,8 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
             } else {
                 hideSnackbar();
             }
+        } else if (conversation.getNextEncryption() == Message.ENCRYPTION_OTR) {
+            showSnackbar(R.string.otr_warning, R.string.readmore, OTRwarning);
         } else {
             hideSnackbar();
         }
