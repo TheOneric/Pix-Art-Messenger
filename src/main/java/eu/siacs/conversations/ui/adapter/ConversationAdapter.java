@@ -5,19 +5,18 @@ import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.common.base.Optional;
-
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.common.base.Optional;
 
 import java.util.List;
 
@@ -35,11 +34,11 @@ import eu.siacs.conversations.utils.EmojiWrapper;
 import eu.siacs.conversations.utils.IrregularUnicodeDetector;
 import eu.siacs.conversations.utils.UIHelper;
 import eu.siacs.conversations.xmpp.chatstate.ChatState;
-import eu.siacs.conversations.xmpp.jingle.AbstractJingleConnection;
 import eu.siacs.conversations.xmpp.jingle.OngoingRtpSession;
 import rocks.xmpp.addr.Jid;
 
 import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY;
+import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY_OLD;
 import static eu.siacs.conversations.ui.util.MyLinkify.replaceYoutube;
 
 public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ConversationViewHolder> {
@@ -163,6 +162,8 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             final Pair<CharSequence, Boolean> preview = UIHelper.getMessagePreview(activity, message, viewHolder.binding.conversationLastmsg.getCurrentTextColor());
             if (showPreviewText) {
                 if (message.getBody().equals(DELETED_MESSAGE_BODY)) {
+                    viewHolder.binding.conversationLastmsg.setText(EmojiWrapper.transform(UIHelper.shorten(activity.getString(R.string.message_deleted))));
+                } else if (message.getBody().equals(DELETED_MESSAGE_BODY_OLD)) {
                     viewHolder.binding.conversationLastmsg.setText(EmojiWrapper.transform(UIHelper.shorten(activity.getString(R.string.message_deleted))));
                 } else {
                     viewHolder.binding.conversationLastmsg.setText(EmojiWrapper.transform(UIHelper.shorten(replaceYoutube(activity.getApplicationContext(), preview.first.toString()))));

@@ -40,6 +40,7 @@ import eu.siacs.conversations.ui.util.MyLinkify;
 import rocks.xmpp.addr.Jid;
 
 import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY;
+import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY_OLD;
 
 public class UIHelper {
 
@@ -314,7 +315,7 @@ public class UIHelper {
 			}
         } else {
             final String body = MessageUtils.filterLtrRtl(message.getBody());
-            if (message.getBody().equals(DELETED_MESSAGE_BODY)) {
+            if (message.getBody().equals(DELETED_MESSAGE_BODY) || message.getBody().equals(DELETED_MESSAGE_BODY_OLD)) {
                 return new Pair<>(context.getString(R.string.message_deleted), false);
             } else if (body.startsWith(Message.ME_COMMAND)) {
                 return new Pair<>(body.replaceAll("^" + Message.ME_COMMAND, UIHelper.getMessageDisplayName(message)), false);

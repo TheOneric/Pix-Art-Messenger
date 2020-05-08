@@ -97,6 +97,7 @@ import rocks.xmpp.addr.Jid;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY;
+import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY_OLD;
 import static eu.siacs.conversations.ui.SettingsActivity.PLAY_GIF_INSIDE;
 import static eu.siacs.conversations.ui.SettingsActivity.SHOW_LINKS_INSIDE;
 import static eu.siacs.conversations.ui.SettingsActivity.SHOW_MAPS_INSIDE;
@@ -590,6 +591,8 @@ public class MessageAdapter extends ArrayAdapter<Message> implements CopyTextVie
             SpannableStringBuilder body = new SpannableStringBuilder(replaceYoutube(activity.getApplicationContext(), message.getMergedBody().toString()));
             if (message.getBody().equals(DELETED_MESSAGE_BODY)) {
                 body = body.replace(0, DELETED_MESSAGE_BODY.length(), activity.getString(R.string.message_deleted));
+            } else if (message.getBody().equals(DELETED_MESSAGE_BODY_OLD)) {
+                body = body.replace(0, DELETED_MESSAGE_BODY_OLD.length(), activity.getString(R.string.message_deleted));
             } else {
                 boolean hasMeCommand = message.hasMeCommand();
                 if (hasMeCommand) {

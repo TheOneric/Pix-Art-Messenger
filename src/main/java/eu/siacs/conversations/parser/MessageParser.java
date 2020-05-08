@@ -58,6 +58,7 @@ import eu.siacs.conversations.xmpp.stanzas.MessagePacket;
 import rocks.xmpp.addr.Jid;
 
 import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY;
+import static eu.siacs.conversations.entities.Message.DELETED_MESSAGE_BODY_OLD;
 
 public class MessageParser extends AbstractParser implements OnMessagePacketReceived {
 
@@ -774,7 +775,7 @@ public class MessageParser extends AbstractParser implements OnMessagePacketRece
                         Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": received message correction but verification didn't check out");
                     }
                 }
-            } else if (replacementId != null && !mXmppConnectionService.allowMessageCorrection() && message.getBody().equals(DELETED_MESSAGE_BODY)) {
+            } else if (replacementId != null && !mXmppConnectionService.allowMessageCorrection() && (message.getBody().equals(DELETED_MESSAGE_BODY) || message.getBody().equals(DELETED_MESSAGE_BODY_OLD))) {
                 Log.d(Config.LOGTAG, account.getJid().asBareJid() + ": received deleted message but LMC is deactivated");
                 return;
             }
