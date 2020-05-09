@@ -88,7 +88,7 @@ import eu.siacs.conversations.utils.GeoHelper;
 import eu.siacs.conversations.utils.MessageUtils;
 import eu.siacs.conversations.utils.RichPreview;
 import eu.siacs.conversations.utils.StylingHelper;
-import eu.siacs.conversations.utils.TimeframeUtils;
+import eu.siacs.conversations.utils.TimeFrameUtils;
 import eu.siacs.conversations.utils.UIHelper;
 import eu.siacs.conversations.xmpp.mam.MamReference;
 import me.drakeet.support.toast.ToastCompat;
@@ -1150,13 +1150,13 @@ public class MessageAdapter extends ArrayAdapter<Message> implements CopyTextVie
             final long duration = rtpSessionStatus.duration;
             if (received) {
                 if (duration > 0) {
-                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, formattedTime, TimeframeUtils.resolve(activity, duration)));
+                    viewHolder.status_message.setText(activity.getString(R.string.incoming_call_duration, formattedTime, TimeFrameUtils.resolve(activity, duration)));
                 } else {
                     viewHolder.status_message.setText(activity.getString(R.string.incoming_call_time, formattedTime));
                 }
             } else {
                 if (duration > 0) {
-                    viewHolder.status_message.setText(activity.getString(R.string.outgoing_call_duration, formattedTime, TimeframeUtils.resolve(activity, duration)));
+                    viewHolder.status_message.setText(activity.getString(R.string.outgoing_call_duration, formattedTime, TimeFrameUtils.resolve(activity, duration)));
                 } else {
                     viewHolder.status_message.setText(activity.getString(R.string.outgoing_call_time, formattedTime));
                 }

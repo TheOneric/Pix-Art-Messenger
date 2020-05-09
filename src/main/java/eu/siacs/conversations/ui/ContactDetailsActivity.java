@@ -66,7 +66,7 @@ import eu.siacs.conversations.utils.Emoticons;
 import eu.siacs.conversations.utils.IrregularUnicodeDetector;
 import eu.siacs.conversations.utils.MenuDoubleTabUtil;
 import eu.siacs.conversations.utils.Namespace;
-import eu.siacs.conversations.utils.TimeframeUtils;
+import eu.siacs.conversations.utils.TimeFrameUtils;
 import eu.siacs.conversations.utils.UIHelper;
 import eu.siacs.conversations.utils.XmppUri;
 import eu.siacs.conversations.xmpp.OnKeyStatusUpdated;
@@ -202,7 +202,7 @@ public class ContactDetailsActivity extends OmemoActivity implements OnAccountUp
                         if (durations[i] == -1) {
                             labels[i] = getString(R.string.until_further_notice);
                         } else {
-                            labels[i] = TimeframeUtils.resolve(ContactDetailsActivity.this, 1000L * durations[i]);
+                            labels[i] = TimeFrameUtils.resolve(ContactDetailsActivity.this, 1000L * durations[i]);
                         }
                     }
                     builder1.setItems(labels, (dialog1, which1) -> {

@@ -51,7 +51,7 @@ import eu.siacs.conversations.utils.EmojiWrapper;
 import eu.siacs.conversations.utils.MenuDoubleTabUtil;
 import eu.siacs.conversations.utils.StringUtils;
 import eu.siacs.conversations.utils.StylingHelper;
-import eu.siacs.conversations.utils.TimeframeUtils;
+import eu.siacs.conversations.utils.TimeFrameUtils;
 import eu.siacs.conversations.utils.XmppUri;
 import me.drakeet.support.toast.ToastCompat;
 import rocks.xmpp.addr.Jid;
@@ -140,7 +140,7 @@ public class ConferenceDetailsActivity extends XmppActivity implements OnConvers
                         if (durations[i] == -1) {
                             labels[i] = getString(R.string.until_further_notice);
                         } else {
-                            labels[i] = TimeframeUtils.resolve(ConferenceDetailsActivity.this, 1000L * durations[i]);
+                            labels[i] = TimeFrameUtils.resolve(ConferenceDetailsActivity.this, 1000L * durations[i]);
                         }
                     }
                     builder1.setItems(labels, (dialog1, which1) -> {

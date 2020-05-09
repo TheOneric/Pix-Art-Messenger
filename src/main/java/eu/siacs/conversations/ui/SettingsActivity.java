@@ -38,7 +38,7 @@ import eu.siacs.conversations.persistance.FileBackend;
 import eu.siacs.conversations.services.ExportBackupService;
 import eu.siacs.conversations.services.MemorizingTrustManager;
 import eu.siacs.conversations.ui.util.StyledAttributes;
-import eu.siacs.conversations.utils.TimeframeUtils;
+import eu.siacs.conversations.utils.TimeFrameUtils;
 import me.drakeet.support.toast.ToastCompat;
 import rocks.xmpp.addr.Jid;
 
@@ -174,7 +174,7 @@ public class SettingsActivity extends XmppActivity implements
                 if (choices[i] == 0) {
                     entries[i] = getString(R.string.never);
                 } else {
-                    entries[i] = TimeframeUtils.resolve(this, 1000L * choices[i]);
+					entries[i] = TimeFrameUtils.resolve(this, 1000L * choices[i]);
                 }
             }
             automaticMessageDeletionList.setEntries(entries);
