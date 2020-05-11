@@ -48,6 +48,8 @@ public class ChannelDiscoveryActivity extends XmppActivity implements MenuItem.O
     private ActivityChannelDiscoveryBinding binding;
     private MenuItem mMenuSearchView;
     private EditText mSearchEditText;
+    private static String jabberNetwork = "JABBER_NETWORK";
+    private static String localServer = "LOCAL_SERVER";
 
     private ChannelDiscoveryService.Method method = ChannelDiscoveryService.Method.LOCAL_SERVER;
 
@@ -139,6 +141,24 @@ public class ChannelDiscoveryActivity extends XmppActivity implements MenuItem.O
             xmppConnectionService.discoverChannels(null, this.method, this);
         }
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.jabber_network:
+                getPreferences().edit().putString("channel_discovery_method", jabberNetwork).apply();
+                recreate();
+                break;
+            case R.id.local_server:
+                getPreferences().edit().putString("channel_discovery_method", localServer).apply();
+                recreate();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void toggleLoadingScreen() {

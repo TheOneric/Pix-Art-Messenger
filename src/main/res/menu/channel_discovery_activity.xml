@@ -8,6 +8,22 @@
         android:title="@string/search"
         app:actionLayout="@layout/actionview_search"
         app:showAsAction="collapseActionView|always" />
+
+    <item
+        android:id="@+id/channel_discovery_method"
+        android:orderInCategory="85"
+        android:title="@string/pref_channel_discovery"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/jabber_network"
+                android:title="@string/jabber_network" />
+            <item
+                android:id="@+id/local_server"
+                android:title="@string/local_server" />
+        </menu>
+    </item>
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
