@@ -2638,6 +2638,9 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
                 && conversation.smpRequested()) {
             showSnackbar(R.string.smp_requested, R.string.verify, this.mAnswerSmpClickListener);
         } else if (mode == Conversation.MODE_SINGLE
+                && conversation.getNextEncryption() == Message.ENCRYPTION_OTR) {
+            showSnackbar(R.string.otr_warning, R.string.readmore, OTRwarning);
+        } else if (mode == Conversation.MODE_SINGLE
                 && conversation.hasValidOtrSession()
                 && (conversation.getOtrSession().getSessionStatus() == SessionStatus.ENCRYPTED)
                 && (!conversation.isOtrFingerprintVerified())) {
@@ -2660,8 +2663,6 @@ public class ConversationFragment extends XmppFragment implements EditMessage.Ke
             } else {
                 hideSnackbar();
             }
-        } else if (conversation.getNextEncryption() == Message.ENCRYPTION_OTR) {
-            showSnackbar(R.string.otr_warning, R.string.readmore, OTRwarning);
         } else {
             hideSnackbar();
         }
