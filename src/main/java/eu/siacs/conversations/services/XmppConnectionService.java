@@ -929,6 +929,9 @@ public class XmppConnectionService extends Service {
         Log.d(Config.LOGTAG, "Number of accounts is " + accounts);
         editor.putInt(SettingsActivity.NUMBER_OF_ACCOUNTS, accounts);
         editor.apply();
+        if (accounts > 1 && !multipleAccounts()) {
+            editor.putBoolean(ENABLE_MULTI_ACCOUNTS, true);
+        }
     }
 
     public void reinitializeMuclumbusService() {
