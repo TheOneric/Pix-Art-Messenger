@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -99,19 +98,19 @@ public class UpdateService extends AsyncTask<String, Object, UpdateService.Wrapp
             JSONObject json = new JSONObject(jsonString.toString());
             if (json.getBoolean("success") && json.has("latestVersion") && json.has("appURI") && json.has("filesize")) {
                 String version = json.getString("latestVersion");
-                String[] ownVersion = BuildConfig.VERSION_NAME.split(" ");
+                String ownVersion = BuildConfig.VERSION_NAME;
                 String url = json.getString("appURI");
                 String filesize = json.getString("filesize");
                 String changelog = "";
                 if (json.has("changelog")) {
                     changelog = json.getString("changelog");
                 }
-                if (checkVersion(version, ownVersion[0]) >= 1) {
-                    Log.d(Config.LOGTAG, "AppUpdater: Version " + Arrays.toString(ownVersion) + " should be updated to " + version);
+                if (checkVersion(version, ownVersion) >= 1) {
+                    Log.d(Config.LOGTAG, "AppUpdater: Version " + ownVersion + " should be updated to " + version);
                     UpdateAvailable = true;
                     showNotification(url, changelog, version, filesize, store);
                 } else {
-                    Log.d(Config.LOGTAG, "AppUpdater: Version " + Arrays.toString(ownVersion) + " is up to date");
+                    Log.d(Config.LOGTAG, "AppUpdater: Version " + ownVersion + " is up to date");
                     UpdateAvailable = false;
                 }
             }
@@ -179,7 +178,7 @@ public class UpdateService extends AsyncTask<String, Object, UpdateService.Wrapp
         String[] remoteV = null;
         String[] installedV = null;
         try {
-            installedV = installedVersion.split("-");
+            installedV = installedVersion.split(" ");
             Log.d(Config.LOGTAG, "AppUpdater: Version installed: " + installedV[0]);
             installed = installedV[0].split("\\.");
         } catch (Exception e) {
