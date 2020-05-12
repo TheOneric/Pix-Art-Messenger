@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,8 @@ public class ChannelDiscoveryActivity extends XmppActivity implements MenuItem.O
     private final ChannelSearchResultAdapter adapter = new ChannelSearchResultAdapter();
     private final PendingItem<String> mInitialSearchValue = new PendingItem<>();
     private ActivityChannelDiscoveryBinding binding;
+    private MenuItem mJabberNetwork;
+    private MenuItem mLocalServer;
     private MenuItem mMenuSearchView;
     private EditText mSearchEditText;
     private static String jabberNetwork = "JABBER_NETWORK";
@@ -100,10 +103,34 @@ public class ChannelDiscoveryActivity extends XmppActivity implements MenuItem.O
         }
     }
 
+    private void handleMethodSelection(MenuItem item) {
+        final boolean updated;
+        switch (item.getItemId()) {
+            case R.id.jabber_network:
+                updated = getPreferences().edit().putString("channel_discovery_method", jabberNetwork).commit();
+                item.setChecked(true);
+                break;
+            case R.id.local_server:
+                updated = getPreferences().edit().putString("channel_discovery_method", localServer).commit();
+                item.setChecked(true);
+                break;
+            default:
+                updated = getPreferences().edit().putString("channel_discovery_method", getString(R.string.default_channel_discovery)).commit();
+                item.setChecked(true);
+                break;
+        }
+        if (updated) {
+            Log.d(Config.LOGTAG, "Discovery method: " + getPreferences().getString("channel_discovery_method", getString(R.string.default_channel_discovery)));
+        }
+        recreate();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.channel_discovery_activity, menu);
         mMenuSearchView = menu.findItem(R.id.action_search);
+        mJabberNetwork = menu.findItem(R.id.jabber_network);
+        mLocalServer = menu.findItem(R.id.local_server);
         final View mSearchView = mMenuSearchView.getActionView();
         mSearchEditText = mSearchView.findViewById(R.id.search_field);
         mSearchEditText.setHint(R.string.search_channels);
@@ -118,6 +145,14 @@ public class ChannelDiscoveryActivity extends XmppActivity implements MenuItem.O
         }
         mSearchEditText.setOnEditorActionListener(this);
         mMenuSearchView.setOnActionExpandListener(this);
+        switch (method) {
+            case JABBER_NETWORK:
+                mJabberNetwork.setChecked(true);
+                break;
+            case LOCAL_SERVER:
+                mLocalServer.setChecked(true);
+                break;
+        }
         return true;
     }
 
@@ -150,12 +185,8 @@ public class ChannelDiscoveryActivity extends XmppActivity implements MenuItem.O
                 finish();
                 break;
             case R.id.jabber_network:
-                getPreferences().edit().putString("channel_discovery_method", jabberNetwork).apply();
-                recreate();
-                break;
             case R.id.local_server:
-                getPreferences().edit().putString("channel_discovery_method", localServer).apply();
-                recreate();
+                handleMethodSelection(item);
                 break;
         }
         return super.onOptionsItemSelected(item);

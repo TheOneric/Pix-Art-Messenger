@@ -15,12 +15,14 @@
         android:title="@string/pref_channel_discovery"
         app:showAsAction="never">
         <menu>
-            <item
-                android:id="@+id/jabber_network"
-                android:title="@string/jabber_network" />
-            <item
-                android:id="@+id/local_server"
-                android:title="@string/local_server" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/jabber_network"
+                    android:title="@string/jabber_network" />
+                <item
+                    android:id="@+id/local_server"
+                    android:title="@string/local_server" />
+            </group>
         </menu>
     </item>
 
